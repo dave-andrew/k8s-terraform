@@ -1,0 +1,10 @@
+# Terraform Providers Packages
+/.terraform
+
+# Variables and Plans 
+*.tfvars
+*.tfplan
+
+# States
+terraform.tfstate
+terraform.tfstate.backup
