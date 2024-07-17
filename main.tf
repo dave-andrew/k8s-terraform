@@ -30,9 +30,9 @@ resource "proxmox_vm_qemu" "k8s-control-planes" {
 
   # K8s Resources
   cores   = 2
-  sockets = 2
+  sockets = 1
   cpu     = "host"
-  memory  = 4096
+  memory  = 2048
 
   os_type = "cloud-init"
   scsihw  = "virtio-scsi-pci"
@@ -58,6 +58,7 @@ resource "proxmox_vm_qemu" "k8s-control-planes" {
   disks {
     ide {
       ide2 {
+	# Drive for cloud-init configuration
         cloudinit {
           storage = "local-lvm"
           # size = "100G"
@@ -66,6 +67,7 @@ resource "proxmox_vm_qemu" "k8s-control-planes" {
     }
     scsi {
       scsi0 {
+	# Drive for booting OS
         disk {
           storage = "local-lvm"
           size = "100G"
@@ -93,7 +95,7 @@ resource "proxmox_vm_qemu" "k8s-workers" {
   cores   = 2
   sockets = 1
   cpu     = "host"
-  memory  = 4096
+  memory  = 3072
 
   os_type = "cloud-init"
   scsihw  = "virtio-scsi-pci"
@@ -119,6 +121,7 @@ resource "proxmox_vm_qemu" "k8s-workers" {
   disks {
     ide {
       ide2 {
+	# Drive for cloud-init configuration
         cloudinit {
           storage = "local-lvm"
           # size = "100G"
@@ -127,6 +130,7 @@ resource "proxmox_vm_qemu" "k8s-workers" {
     }
     scsi {
       scsi0 {
+	# Drive for booting OS
         disk {
           storage = "local-lvm"
           size = "100G"

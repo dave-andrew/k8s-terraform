@@ -55,6 +55,7 @@ control-planes = {
         desc        = 'control-planes-1'
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.20/24,gw=10.35.10.1'
+	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
     }
     "control-plane-2" = {
         vmid        = '101'
@@ -62,6 +63,7 @@ control-planes = {
         desc        = 'control-planes-2'
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.21/24,gw=10.35.10.1'
+	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
     }
 }
 
@@ -73,6 +75,7 @@ workers = {
         desc        = 'worker-1'
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.22/24,gw=10.35.10.1'
+	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
     }
     "worker-2" = {
         vmid        = '103'
@@ -80,6 +83,7 @@ workers = {
         desc        = 'worker-2'
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.23/24,gw=10.35.10.1'
+	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
     }
 }
 ```
@@ -92,27 +96,4 @@ terraform init
 Next you can deploy the cluster using:
 ```
 terraform apply
-```
-
-## Initialize Cluster
-
-To intialze your Kubernetes cluster run the following command as root at your **master** node
-```bash
-kubeadm init --control-plane-endpoint="LOAD_BALANCER_IP:LOAD_BALANCER_PORT" --pod-network-cidr="10.244.0.0/16" --upload-certs
-```
-
-After the initialization process succeed, run the following command:
-```
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-Alternatively, if you are the root user, you can run:
-```
-export KUBECONFIG=/etc/kubernetes/admin.conf
-```
-
-To join other control plane nodes run the following command **(example only)**:
-```bash
-sudo kubeadm join LOAD_BALANCER_IP:LOAD_BALANCER_PORT --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
 ```
