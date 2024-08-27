@@ -29,10 +29,10 @@ resource "proxmox_vm_qemu" "k8s-control-planes" {
   full_clone = true
 
   # K8s Resources
-  cores   = 2
+  cores   = 4
   sockets = 1
   cpu     = "host"
-  memory  = 2048
+  memory  = each.value["memory"]
 
   os_type = "cloud-init"
   scsihw  = "virtio-scsi-pci"
@@ -49,9 +49,11 @@ resource "proxmox_vm_qemu" "k8s-control-planes" {
 
   # K8s Network Configuration
   network {
-    bridge = "vmbr1"
+    bridge = "vmbr0"
     model  = "virtio"
     firewall = true
+    # VLAN Tag
+    tag = 77
   }
 
   # K8s Disk Configuration
@@ -70,7 +72,7 @@ resource "proxmox_vm_qemu" "k8s-control-planes" {
 	# Drive for booting OS
         disk {
           storage = "local-lvm"
-          size = "100G"
+          size = "50G"
         }
       }
     }
@@ -92,10 +94,10 @@ resource "proxmox_vm_qemu" "k8s-workers" {
   full_clone = true
 
   # K8s Resources
-  cores   = 2
+  cores   = 3
   sockets = 1
   cpu     = "host"
-  memory  = 3072
+  memory  = each.value["memory"]
 
   os_type = "cloud-init"
   scsihw  = "virtio-scsi-pci"
@@ -112,9 +114,10 @@ resource "proxmox_vm_qemu" "k8s-workers" {
 
   # K8s Network Configuration
   network {
-    bridge = "vmbr1"
+    bridge = "vmbr0"
     model  = "virtio"
     firewall = true
+    tag = 77
   }
 
   # K8s Disk Configuration
@@ -133,7 +136,7 @@ resource "proxmox_vm_qemu" "k8s-workers" {
 	# Drive for booting OS
         disk {
           storage = "local-lvm"
-          size = "100G"
+          size = "50G"
         }
       }
     }

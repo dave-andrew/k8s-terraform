@@ -31,6 +31,9 @@ variable "control-planes" {
     # format: 'ip=XX.XX.XX.XX/SUBNET,gw=XX.XX.XX.XX;'
     # ex    : 'ip=10.35.10.20/24,gw=10.35.10.1'
     ipconfig0   = string
+    # memory: The memory allocation for the VM
+    # ex    : 2048
+    memory      = number
   }))
 }
 
@@ -52,6 +55,9 @@ variable "workers" {
     # format: 'ip=XX.XX.XX.XX/SUBNET,gw=XX.XX.XX.XX;'
     # ex    : 'ip=10.35.10.20/24,gw=10.35.10.1'
     ipconfig0   = string
+    # memory: The memory allocation for the VM
+    # ex    : 2048
+    memory      = number
   }))
 }
 
