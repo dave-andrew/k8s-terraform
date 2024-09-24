@@ -56,6 +56,7 @@ control-planes = {
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.20/24,gw=10.35.10.1'
 	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
+	memory	    = 32768
     }
     "control-plane-2" = {
         vmid        = '101'
@@ -64,6 +65,7 @@ control-planes = {
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.21/24,gw=10.35.10.1'
 	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
+	memory	    = 32768
     }
 }
 
@@ -76,6 +78,7 @@ workers = {
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.22/24,gw=10.35.10.1'
 	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
+	memory	    = 32768
     }
     "worker-2" = {
         vmid        = '103'
@@ -84,6 +87,7 @@ workers = {
         target_node = 'SERVER-1'
         ipconfig0   = 'ip=10.35.10.23/24,gw=10.35.10.1'
 	nameserver  = "10.22.64.21, 1.1.1.1, 8.8.8.8"
+	memory	    = 32768
     }
 }
 ```
